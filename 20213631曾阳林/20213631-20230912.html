@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>实验报告</title>
+    <style>
+        body{
+            margin: 20px;
+        }
+        span{
+            font-size: 1.8em;
+            color: blue;
+            display: block;
+            margin-top: 10px;
+            margin-bottom: 15px;
+        }
+        li{
+            text-decoration: none;
+        }
+        .container{
+            width: 65%;
+            margin: 0 auto;
+        }
+        .text{
+            font-size: 1.3em;
+
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <span>
+            1.简介
+        </span>
+        <div class="text">
+            配合听老师的mp3音频文件，阅读了LiuxCMD书的序言和第一章。按照作业的要求，将下载videoClips文件包到我的个人文件夹，在bash命令行输入tar -xf videoClips命令解包后<br>
+            得到videoMP4文件夹，之后在bash界面(已经切换到个人文件夹的路径)，再输入"rmdir videoClip3"删除下载的的包文件，后用"ls videoMP4"列出解包的文件
+        </div>
+        <span>
+            2.命令
+        </span>
+        <div class="text">
+            cd yanglin/<br>
+
+            ls<br>
+            tar -xf videoClips<br>
+            ls<br>
+            cd videoMP4/<br>
+            ls<br>
+            cd ..<br>
+            rm videoClips<br>
+            ls<br>
+            rmdir videoClips<br>
+        </div>
+        <span>
+            3.总结
+        </span>
+        <div class="text">
+            配合听mp3音频文件和bash命令行使用cd、mv、ls、rm等命令，对LiuxCMD书的命令有了更深的了解，相较于文件资源管理器，命令行更灵活和便捷。
+        </div>
+    </div>
+</body>
+</html>
