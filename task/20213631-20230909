@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>①在gitbash中，我学会了ls、mkdir、cd、rm、mv等操作命令。</p>
+<p></p>
+<p>②操作步骤：在创建的文件中，进行文件的拷贝、删除、创建和移动等操作，并在bash中用ls命令在当前的文件夹中列出来(可用cd来改变当前文件夹的位置),最后用history &gt; 文件名导出。</p>
+<p></p>
+<p>③历史记录:</p>
+<p>1  exit</p>
+<p>2  exit</p>
+<p>3  ls/</p>
+<p>4  ls</p>
+<p>5  vim index.html</p>
+<p>6  t</p>
+<p>7  tmp/</p>
+<p>8  ls</p>
+<p>9  cd /</p>
+<p>10  mkdir study</p>
+<p>11  cd --help</p>
+<p>12  cd c:/</p>
+<p>13  cd ../</p>
+<p>14  cd /</p>
+<p>15  cd /</p>
+<p>16  cd -@</p>
+<p>17  cd -@]</p>
+<p>18  cd /d D:\Users\20594\总文件夹\音乐</p>
+<p>19  cd D:\Users\20594\总文件夹\音乐</p>
+<p>20  cd tmp/</p>
+<p>21  copy [200~&quot;D:\Users\20594\总文件夹\3D旋转相册.html&quot;~</p>
+<p>22  copy --help</p>
+<p>23  history</p>
+<p>24  cat D:\Users\20594\总文件夹\3D旋转相册.html</p>
+<p>25  cd ../</p>
+<p>26  cd ../</p>
+<p>27  cd d:/</p>
+<p>28  ls /desktop/</p>
+<p>29  ls</p>
+<p>30  ls Users/</p>
+<p>31  ls Users/20594/</p>
+<p>32  ls Users/20594/总文件夹/音乐/</p>
+<p>33  md</p>
+<p>34  cd ../</p>
+<p>35  cat [200~3D旋转相册.html~</p>
+<p>36  cat 3D旋转相册.html</p>
+<p>37  history</p>
+<p>38  help</p>
+<p>39  eval &quot;1+2&quot;</p>
+<p>40  eval --help</p>
+<p>41  eval &quot;1&quot;</p>
+<p>42  eval 1+2</p>
+<p>43  copy -help</p>
+<p>44  copy --help</p>
+<p>45  cd \d\Baidu</p>
+<p>46  cd d/Baidu</p>
+<p>47  cd ../</p>
+<p>48  mkdir Users/Desktop/study</p>
+<p>49  ls Users/</p>
+<p>50  mkdir Users/20594/study</p>
+<p>51  ls Users/20594/</p>
+<p>52  cp ./</p>
+<p>53  cd ./</p>
+<p>54  cd ../</p>
+<p>55  ls</p>
+<p>56  history &gt; 20213631</p>
+<p>57  ls</p>
+<p>58  history &gt; 20213631.txt</p>
+<p>59  mkdir yanglin</p>
+<p>60  cd yanglin/</p>
+<p>61  ls</p>
+<p>62  cp /c/Users/20594/Downloads/The\ Linux\ Command\ Line\ A\ Complete\ Introduction.pdf .</p>
+<p>63  cp /c/Users/20594/Downloads/The\ Linux\ Command\ Line\ A\ Complete\ Introduction.pdf .</p>
+<p>64  ls</p>
+<p>65  ls -a</p>
+<p>66  cd ./</p>
+<p>67  ls</p>
+<p>68  ls -a</p>
+<p>69  ls -h</p>
+<p>70  ls --help</p>
+<p>71  ls -b</p>
+<p>72  ls -i</p>
+<p>73  ls -Z</p>
+<p>74  cp /c/Users/20594/Downloads/*.pdf .</p>
+<p>75  rm CET4_202306_360112231107009_1.pdf </p>
+<p>76  history &gt; 20213631-20230905.txt</p>
+<p>77  cp /d/Users/20594/2.jpg .</p>
+<p>78  mkdir Tom_and_Jerry</p>
+<p>79  cd Tom_and_Jerry/</p>
+<p>80  cd ../</p>
+<p>81  mkdir img</p>
+<p>82  cd img</p>
+<p>83  cp /d/Git/yanglin/2.jpg .</p>
+<p>84  ls</p>
+<p>85  mkdir templates</p>
+<p>86  cp /d/Git/3D旋转相册.html ./templates/</p>
+<p>87  ls ./templates/</p>
+<p>88  cat ./templates/3D旋转相册.html </p>
+<p>89  rm /d/Git/20213631</p>
+<p>90  ls /d/Git/</p>
+<p>91  rm /d/Git/新建\ 文本文档.txt </p>
+<p>92  rename --help</p>
+<p>93  help</p>
+<p>94  git --help</p>
+<p>95  restore</p>
+<p>96  restore -a</p>
+<p>97  rm /d/Git/20213631.txt </p>
+<p>98  mv /d/Users/20594/Untitled1.html .</p>
+<p>99  mv ./Untitled1.html ./templates/</p>
+<p>100  ls</p>
+<p>101  git clone .</p>
+<p>102  git clone</p>
+<p>103  git clone -q</p>
+<p>104  git --help</p>
+<p>105  git restore</p>
+<p>106  git log</p>
+<p>107  help</p>
+<p>108  times</p>
+<p>109  true</p>
+<p>110  g = true</p>
+<p>111  logout 1</p>
+<p>112  history</p>
+<p>113  cd yanglin/</p>
+<p>114  history &gt; 20213631-20230905.txt</p>
+</body>
+</html>
