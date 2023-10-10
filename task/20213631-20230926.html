@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>第四次作业</title>
+    <style>
+        .content {
+            font-size: 1.2em;
+            width: 50%;
+            margin: 10px auto;
+            background-color: rgba(117, 112, 112, 0.3);
+            padding: 10px;
+            line-height: 40px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="content">
+    一、ping命令的基本信息<br>
+    Ping命令可以进行以下操作:<br>
+    (1)通过将ICMP(Internet控制消息协议)回显数据包发送到计算机并侦听回显回复数据包来验证与一台或多台远程计算机的连接。<br>
+    (2)每个发送的数据包最多等待一秒。<br>
+    (3)打印已传输和接收的数据包数。<br>
+    注意
+    :Ping成功并不一定就代表TCP/IP配置正确,有可能还要执行大量的本地主机与远程主机的数据包交换,才能确信TCP/IP配置的正确性。如果执行ping成功而网络仍无法使用,那么问题很可能出在网络系统的软件配置方面,ping成功只保证当前主机与目的主机间存在一条连通的物理路径。<br>
+    <br>
+    二、tracert（traceroute）是一个常用的网络工具，用于追踪分析数据包在网络中传输时经过的路径，并输出到目标地址的延迟情况和节点信息。<br>
+    <span style="color: red">
+        注意事项
+    </span><br>
+    <ul>
+        <li data-pid="fhUQyGJL">不要滥用 tracert 命令，尤其是在生产环境中执行时，因为它在追踪过程中会发送大量的数据包，会给网络带来额外的负担。</li>
+        <li data-pid="jIqJR79I">在进行路由跟踪时，可能会遇到一些无法到达的节点，此时 tracert 会结束追踪过程并返回报告信息。</li>
+        <li data-pid="umQDcaJG">在进行路由跟踪时，可能因为某些网络节点的安全限制而导致 tracert 命令无法执行。在这种情况下，可以尝试使用其他一些网络工具，例如 Ping 命令。</li>
+    </ul>
+    三、curl 是常用的命令行工具，用来请求 Web 服务器。它的名字就是客户端（client）的 URL 工具的意思。
+    它的功能非常强大，命令行参数多达几十种。
+</div>
+</body>
+</html>
