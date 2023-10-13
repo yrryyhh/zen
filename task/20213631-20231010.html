@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第五次作业</title>
+    <style>
+        #container{
+            margin: 10px auto;
+        }
+        #myVideo {
+            padding-left: 17.5%;
+
+            width: 65%;
+
+        }
+
+        button {
+            font-size: 1.3em;
+            margin-left: 50px;
+        }
+
+        .btnContainer {
+            padding-left: 17.5%;
+            width: 65%;
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="container">
+    <video id="myVideo" src="" onclick=""></video>
+    <div class="btnContainer">
+        <button id="play">播放</button>
+        <button id="pause">暂停</button>
+        <button id="prev">上一个</button>
+        <button id="next">下一个</button>
+
+        <input type="file" class="inputFile" onchange="changeFile(this)">
+    </div>
+</div>
+<script>
+    const videoPath = [
+        'https://yrryyhh.github.io/zen/video/funDogs.mp4',
+        'https://yrryyhh.github.io/zen/video/上瘾.mp4',
+        'https://yrryyhh.github.io/zen/video/世界冠军江西弃婴.mp4',
+        'https://yrryyhh.github.io/zen/video/农民吹牛.mp4',
+        'https://yrryyhh.github.io/zen/video/逗八哥狗.mp4'
+    ];
+    const mp4 = document.getElementById("myVideo");
+    let i = 0;
+    let isPlay = false;//
+
+    mp4.src = videoPath[i];
+    mp4.onclick = function () {
+        if (isPlay) {
+            mp4.pause();
+        } else {
+            mp4.play();
+        }
+        isPlay = !isPlay;
+    };
+    document.getElementById("play").onclick = function () {
+        mp4.play();
+        isPlay = true;
+    };
+    document.getElementById("pause").onclick = function () {
+        mp4.pause();
+        isPlay = false;
+    };
+    document.getElementById("prev").onclick = function () {
+        i--;
+        if (i <= 0) {
+            i = 0;
+        }
+        mp4.src = videoPath[i];
+        mp4.play();
+        isPlay = true;
+    };
+    document.getElementById("next").onclick = function () {
+        i++;
+        if (i === videoPath.length) {
+            i = videoPath.length - 1;
+        }
+        mp4.src = videoPath[i];
+        mp4.play();
+        isPlay = true;
+    }
+
+    function changeFile(ele) {
+
+        const video = ele.files[0];
+        mp4.src = URL.createObjectURL(video);
+        isPlay = false;
+    }
+
+
+</script>
+</body>
+
+</html>
