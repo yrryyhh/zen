@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第五次作业</title>
+    <style>
+        #container{
+            margin: 10px auto;
+        }
+        #myVideo {
+            width: 100%;
+        }
+        #log{
+            background-color: red;
+            color: white;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+        button {
+            font-size: 1.3em;
+            margin-left: 50px;
+        }
+
+        .btnContainer {
+            padding-left: 17.5%;
+            width: 65%;
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="container">
+    <video id="myVideo" src="" onclick=""></video>
+    <span id="log"></span>
+    <div class="btnContainer">
+        <button id="play" onclick="play()">播放</button>
+        <button id="pause">暂停</button>
+        <button id="prev">上一个</button>
+        <button id="next">下一个</button>
+<!--        <input type="file" class="inputFile" onchange="changeFile(this)">-->
+        <br><br>
+        <span>进度:</span>
+        <input type="text" id="currentTimeDom"><span style="color: red;font-size: 12px" id="error"></span>
+        <br><br>
+        <span>视频序号:</span><input type="text" id="number"><span style="color: red;font-size: 12px" class="error"></span>
+    </div>
+</div>
+<script>
+    const videoPath = [
+        'https://yrryyhh.github.io/zen/video/funDogs.mp4',
+        'https://yrryyhh.github.io/zen/video/上瘾.mp4',
+        'https://yrryyhh.github.io/zen/video/世界冠军江西弃婴.mp4',
+        'https://yrryyhh.github.io/zen/video/农民吹牛.mp4',
+        'https://yrryyhh.github.io/zen/video/逗八哥狗.mp4'
+    ];
+    let time = document.getElementById("currentTimeDom");
+    time.value = 0 + "s";
+    const mp4 = document.getElementById("myVideo");
+    const number = document.getElementById("number");
+    const logDom = document.getElementById("log");
+    logDom.innerText = "01/0" + videoPath.length;
+    number.value = 1;
+    let i = 0;
+    let isPlay = false;//
+
+    mp4.src = videoPath[i];
+
+    const interval = setInterval(function () {
+        time.value = parseInt(mp4.currentTime) + "s";
+        if(mp4.currentTime >= mp4.duration){
+            clearInterval(interval);
+        }
+    }, 1000)
+    mp4.onclick = function () {
+        if (isPlay) {
+            pause();
+
+        } else {
+            mp4.play();
+            isPlay = true;
+        }
+    };
+    function play() {
+        let flag = parseInt(time.value);
+        const duration = Math.ceil(mp4.duration) - 1;
+        let count = parseInt(number.value);
+
+        if (flag!==0 &&!flag){
+            time.value = 0 + "s";
+            console.log("类型错误" + flag);
+        }
+        if (!count){
+            number.value = i + 1;
+            count = parseInt(number.value);
+            document.getElementsByClassName("error")[0].innerText = "类型错误";
+        }else {
+            document.getElementsByClassName("error")[0].innerText = "";
+        }
+        if(count > videoPath.length){
+            count = 1;
+            document.getElementsByClassName("error")[0].innerText = "超出视频索引范围错误";
+        }else {
+            document.getElementsByClassName("error")[0].innerText = "";
+        }
+        if(flag >= duration){
+            flag = duration;
+            time.value = duration + "s";
+            document.getElementById("error").innerText = "已超过或等于总时长";
+        }else {
+
+            document.getElementById("error").innerText = "";
+        }
+        i = count - 1;
+        mp4.src = videoPath[i];
+        logDom.innerText = "0" + count + "/0" + videoPath.length;
+        mp4.currentTime = flag;
+        mp4.play();
+
+        isPlay = true;
+    }
+    function pause() {
+        mp4.pause();
+        isPlay = false;
+    }
+    document.getElementById("prev").onclick = function () {
+        i--;
+        if (i <= 0) {
+            i = 0;
+        }
+        mp4.src = videoPath[i];
+        number.value = i + 1;
+        logDom.innerText = "0" + (i + 1) + "/0" + videoPath.length;
+        time.value = 0 + "s";
+        play();
+        isPlay = true;
+    };
+    document.getElementById("next").onclick = function () {
+        i++;
+        if (i === videoPath.length) {
+            i = videoPath.length - 1;
+        }
+        mp4.src = videoPath[i];
+        number.value = i + 1;
+        time.value = 0 + "s";
+        logDom.innerText = "0" + (i + 1) + "/0" + videoPath.length;
+        play();
+        isPlay = true;
+    }
+
+    // function changeFile(ele) {
+    //
+    //     const video = ele.files[0];
+    //     mp4.src = URL.createObjectURL(video);
+    //     isPlay = false;
+    // }
+
+
+</script>
+</body>
+
+</html>
