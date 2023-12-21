@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>视频播放器</title>
+    <style>
+        input {
+            cursor: pointer;
+            font-size: 25px;
+        }
+
+        body #jump {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            z-index: 9999;
+        }
+
+        html {
+            display: flex;
+            min-height: 80vh;
+            background-color: antiquewhite;
+        }
+
+        body {
+            margin: 20px;
+            background-color: rgb(236, 249, 247);
+            border: 2px solid black;
+            border-radius: 10px;
+            border-color: aqua;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        button {
+            color: #fff;
+            background-color: #da4f49;
+            border: 1px solid #bd362f;
+            font-family: '圆体';
+            margin-top: 30px;
+            margin-right: 15px;
+            margin-left: 50px;
+            margin-bottom: 30px;
+            vertical-align: middle;
+            font-size: 30px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        input {
+            font-size: 20px;
+            margin-top: 10px;
+            margin-left: 50px;
+            font-family: '圆体';
+            border: 1px solid #bd362f;
+        }
+
+        #videoPlayer {
+            border: 2px solid black;
+            border-radius: 10px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        div#logo {
+            color: white;
+            position: absolute;
+            right: 40px;
+            top: 400px;
+            font-size: 40px;
+            background-color: red;
+            border-radius: 10px;
+            z-index: 0;
+        }
+
+        div#showTime {
+            color: white;
+            position: absolute;
+            left: 40px;
+            top: 400px;
+            font-size: 40px;
+            background-color: blue;
+            border-radius: 10px;
+            z-index: 0;
+        }
+
+        #duration {
+            position: absolute;
+            left: 0;
+            top: 80%;
+            display: flex;
+            flex-direction: column;
+
+            /* margin-top: 30px; */
+            /*    background-color:rgba(255, 251, 240, 0.3); */
+        }
+
+        #switch {
+            font-size: 30px;
+            margin-top: 10px;
+            margin-left: 50px;
+            font-family: '圆体';
+            border: 1px solid rgb(65, 123, 200);
+            background-color: #49da81;
+            border-radius: 30px;
+        }
+
+        .audio-btn {
+            background-color: rgba(61, 60, 55, 0.3);
+        }
+
+        .disignedBy {
+            font-family: "方正舒体"; /*设置字体*/
+            font-size: 17px; /*设置字体大小*/
+            font-weight: bolder; /*设置字体粗细*/
+            text-align: right;
+        }
+
+        .head {
+            font-family: "方正舒体"; /*设置字体*/
+            font-size: 17px; /*设置字体大小*/
+            font-weight: bolder; /*设置字体粗细*/
+            /*    -webkit-text-stroke:1px #0000FF;        文字描边 */
+            /*设置文字的填充颜色 -webkit-text-fill-color:transparent;  */
+        }
+
+        .my-image {
+            width: 10%;
+            height: auto;
+            margin-left: 4%;
+        }
+
+        .th-image {
+            width: 10%;
+            height: auto;
+            margin-left: 4%;
+            float: right;
+        }
+
+        div#audioButtonsContainer {
+            display: flex;
+            flex-direction: column;
+            width: 20%;
+        }
+    </style>
+    <style type="text/css">#_copy {
+        align-items: center;
+        background: #4494d5;
+        border-radius: 3px;
+        color: #fff;
+        cursor: pointer;
+        display: flex;
+        font-size: 13px;
+        height: 30px;
+        justify-content: center;
+        position: absolute;
+        width: 60px;
+        z-index: 1000
+    }
+
+    #select-tooltip, #sfModal, .modal-backdrop, div[id^=reader-helper] {
+        display: none !important
+    }
+
+    .modal-open {
+        overflow: auto !important
+    }
+
+    ._sf_adjust_body {
+        padding-right: 0 !important
+    }
+
+    .enable_copy_btns_div {
+        position: fixed;
+        width: 154px;
+        left: 10px;
+        top: 45%;
+        background: #e7f1ff;
+        border: 2px solid #4595d5;
+        font-weight: 600;
+        border-radius: 2px;
+        font-family: -apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+        z-index: 5000
+    }
+
+    .enable_copy_btns_logo {
+        width: 100%;
+        background: #4595d5;
+        text-align: center;
+        font-size: 12px;
+        color: #e7f1ff;
+        line-height: 30px;
+        height: 30px
+    }
+
+    .enable_copy_btns_btn {
+        display: block;
+        width: 128px;
+        height: 28px;
+        background: #7f5711;
+        border-radius: 4px;
+        color: #fff;
+        font-size: 12px;
+        border: 0;
+        outline: 0;
+        margin: 8px auto;
+        font-weight: 700;
+        cursor: pointer;
+        opacity: .9
+    }
+
+    .enable_copy_btns_btn:hover {
+        opacity: .8
+    }
+
+    .enable_copy_btns_btn:active {
+        opacity: 1
+    }</style>
+</head>
+
+<body>
+<div class="head">
+    <span style="display: inline-block;">--江西科技师范大学--21计科二班-- 组长：李晨 ，小组成员：曾阳林，孔卓，彭起峰</span>
+    <span style="float: right;">指导老师--李建宏</span>
+</div>
+<div id="imageShow">
+    <img src="images/myface3.jpg" alt="曾阳林的照片" class="my-image">
+    <img src="images/myface1.jpg" alt="孔卓的照片" class="my-image">
+    <img src="images/myface2.jpg" alt="李晨的照片" class="my-image">
+    <img src="images/myface4.jpg" alt="彭起峰的照片" class="my-image">
+    <img src="images/myface5.jpg" alt="李老师的照片" class="th-image">
+
+</div>
+<h1 id="myTitle">一个平平无奇的音视频学习平台</h1>
+<video id="videoPlayer" src="https://jxzy-dmxy.jxstnu.edu.cn/tedVideos/\v02004040000bpa9p3egncoejcefuv4g.mp4"
+       style="width: 1395px;">
+    <source src="">
+</video>
+<div id="showTime"></div>
+<div id="logo">准备播放视频</div>
+
+<div id="UI">
+    <div id="duration"><input type="button" value="TimePart1"><input type="button" value="TimePart2"><input
+            type="button" value="TimePart3"><input type="button" value="TimePart4"><input type="button"
+                                                                                          value="TimePart5"><input
+            type="button" value="TimePart6"><input type="button" value="TimePart7"><input type="button"
+                                                                                          value="TimePart8"><input
+            type="button" value="TimePart9"></div>
+    <button id="play-Pause-Button" style="display:inline">播放</button>
+    <button id="previous" onclick="previousVideo()" style="display:inline">上一个</button>
+    <button id="next" onclick="nextVideo()" style="display:inline">下一个</button>
+
+    <br>
+    <div id="wrapper">
+        TIM:<input type="text" id="jumpTime" placeholder="跳转时间/（秒）" style="display:inline">
+        <br>
+        VDO:<input type=" text" id="jumpVideo" placeholder="跳转视频/（序号）" style="display:inline">
+        <button onclick="jumpTo()" style="display:inline">跳转</button>
+    </div>
+    <!-- 接下来是mp3播放器 -->
+
+    <audio id="audioPlayer" controls="" style="display:none;" src="https://jxzy-dmxy.jxstnu.edu.cn/\LinuxCMD-2.mp3">
+        <source src="" type="audio/mpeg">
+    </audio>
+    <button id="switch" onclick="switchDom()">切换到音频</button>
+    <button id="preAudio" onclick="preAudio()" style="display:none">上一个</button>
+    <button id="nexAudio" onclick="nexAudio()" style="display:none">下一个</button>
+    <div id="audioButtonsContainer">
+        <div id="buttonContainer" style="display: none;">
+            <div id="extwaiokist" style="display:none" v="fhhin" q="27260ae8" c="88.89" i="99" u="25.67" s="12142303"
+                 sg="svr_undefined-ga_12142303-bai_12132320" d="1" w="false" e="" a="2" m="BMe=" vn="9zsse">
+                <div id="extwaigglbit" style="display:none" v="fhhin" q="27260ae8" c="88.89" i="99" u="25.67"
+                     s="12142303" sg="svr_undefined-ga_12142303-bai_12132320" d="1" w="false" e="" a="2" m="BMe="></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p class="disignedBy"> 江西科技师范大学--21计科二班--组长：李晨 ，小组成员：曾阳林，孔卓，彭起峰</p>
+<script src="ks.js"></script>
+<script>
+    // 获取具有id为"videoPlayer"的HTML元素，并将其赋值给变量videoPlayer,
+    //通过这个变量，我们可以通过JavaScript来操作和控制该视频播放器
+    var Model = {};
+    Model.i = 0;
+    Model.UI = {};
+    Model.videoPlayer = document.getElementById('videoPlayer');
+    Model.audioPlayer = document.getElementById("audioPlayer");
+    Model.UI.playPauseButton = document.getElementById('play-Pause-Button');
+
+
+    Model.UI.currentVideoIndex = 0; // 当前播放的视频索引
+    Model.UI.currentAudioIndex = 0; // 当前播放的视频索引
+
+    Model.videoPlayer.src = mediaData.videoPath + mediaData.videoFileStruct[Model.UI.currentVideoIndex]
+        .videoFileName;
+    Model.audioPlayer.src = mediaData.audioPath + mediaData.audioFileStruct[Model.UI.currentAudioIndex]
+        .audioFileName;
+    Model.UI.buttonContainer = document.getElementById("buttonContainer");
+    Model.UI.audioButtonsContainer = document.getElementById("audioButtonsContainer");
+    Model.UI.ShowTime = document.getElementById('showTime');
+    Model.UI.preAudio = document.getElementById('preAudio');
+    Model.UI.nexAudio = document.getElementById('nexAudio');
+
+    // 获取视频宽度
+    Model.UI.browserWidth = document.body.clientWidth;
+    Model.videoPlayer.style.width = Model.UI.browserWidth + 'px';
+
+    Model.UI.durationDom = [];
+
+    //如果视频处于暂停状态，播放并改变按钮的文本
+    function playPause() {
+        let playPauseButton = Model.UI.playPauseButton;
+        let videoPlayer = Model.videoPlayer;
+        document.getElementById("logo").innerHTML = "正在播放第1个视频/共" + mediaData.videoFileStruct.length + " 个视频";
+        if (videoPlayer.paused) {
+            videoPlayer.play();
+            playPauseButton.innerHTML = '暂停';
+        } else {
+            videoPlayer.pause();
+            playPauseButton.innerHTML = "播放";
+        }
+    }
+
+    //音视频转换按钮功能
+    var isSwitched = false; // 添加状态变量
+
+    function switchDom() {
+        isSwitched = !isSwitched; // 切换isSwitched的值
+        if (isSwitched) {
+            switchPage(); // 切换页面
+        } else {
+            restorePage(); // 还原页面
+        }
+    }
+
+    function switchPage() {
+        let durationDom = Model.UI.durationDom;
+        let videoPlayer = Model.videoPlayer;
+        let audioPlayer = Model.audioPlayer;
+
+        videoPlayer.pause();
+        if (videoPlayer.style.display !== 'none') {
+            videoPlayer.style.display = 'none';
+            audioPlayer.style.display = 'block';
+        }
+
+        for (let i = 0; i < durationDom.length; i++) {
+            durationDom[i].style.display = 'none';
+        }
+        Model.UI.playPauseButton.style.display = 'none';
+
+        var previousButton = document.getElementById('previous');
+        previousButton.style.display = 'none';
+        var nextButton = document.getElementById('next');
+        nextButton.style.display = 'none';
+        /*  var logoButton = document.getElementById('logo');
+         logoButton.style.display = 'none'; */
+        var wrapperButton = document.getElementById('wrapper');
+        wrapperButton.style.display = 'none';
+        var myTitle = document.getElementById('myTitle');
+        myTitle.innerHTML = '一个平平无奇的音频学习平台';
+        Model.UI.buttonContainer.style.display = 'inline';
+        var switchDom = document.getElementById('switch');
+        Model.UI.ShowTime.style.display = 'none';
+        Model.UI.preAudio.style.display = '';
+        Model.UI.nexAudio.style.display = '';
+
+        switchDom.innerHTML = '切换到视频';
+        audioPlayer.pause();
+        document.getElementById("logo").innerHTML = "准备播放音频";
+        //调用生成检索按钮的方法
+        addAudioButtons();
+        Model.UI.audioButtonsContainer.style.display = '';
+        isSwitched = true; // 将状态变量设为true
+    }
+
+    function restorePage() {
+        let durationDom = Model.UI.durationDom;
+        let videoPlayer = Model.videoPlayer;
+        let audioPlayer = Model.audioPlayer;
+
+        if (audioPlayer.style.display !== 'none') {
+            audioPlayer.style.display = 'none';
+            videoPlayer.style.display = 'block';
+        }
+
+        for (let i = 0; i < durationDom.length; i++) {
+            durationDom[i].style.display = ''; // 恢复原始的display属性
+        }
+
+        Model.UI.playPauseButton.style.display = '';
+        var previousButton = document.getElementById('previous');
+        previousButton.style.display = '';
+        var nextButton = document.getElementById('next');
+        nextButton.style.display = '';
+        /*   var logoButton = document.getElementById('logo');
+          logoButton.style.display = ''; */
+        var wrapperButton = document.getElementById('wrapper');
+        wrapperButton.style.display = '';
+        var myTitle = document.getElementById('myTitle');
+        myTitle.innerHTML = '一个平平无奇的视频学习平台';
+        var switchDom = document.getElementById('switch');
+        Model.UI.ShowTime.style.display = '';
+        Model.UI.preAudio.style.display = 'none';
+        Model.UI.nexAudio.style.display = 'none';
+        switchDom.innerHTML = '切换到音频';
+        addAudioButtons();
+        Model.UI.audioButtonsContainer.style.display = 'none';
+
+
+        isSwitched = false; // 将状态变量设为false
+    }
+
+    function addAudioButtons() {
+        Model.UI.audioButtonsContainer.innerHTML = '';
+        for (var i = 0; i < mediaData.audioFileStruct[Model.UI.currentAudioIndex].title.length; i++) {
+            var title = mediaData.audioFileStruct[Model.UI.currentAudioIndex].title[i];
+            var startTime = mediaData.audioFileStruct[Model.UI.currentAudioIndex].time[i][Model.UI
+                .currentAudioIndex];
+
+            var button = document.createElement("button");
+            button.textContent = title;
+            button.classList.add("audio-btn");
+
+            // 添加点击事件处理程序
+            (function (start) {
+                button.addEventListener("click", function () {
+                    Model.audioPlayer.currentTime = start;
+                    Model.audioPlayer.play();
+                });
+            })(startTime);
+
+            Model.UI.audioButtonsContainer.appendChild(button);
+        }
+        // 设置音频文件路径
+        Model.audioPlayer.querySelector("source").src = mediaData.audioPath + mediaData.audioFileStruct[0]
+            .audioFileName;
+        Model.audioPlayer.load();
+    }
+
+
+    function previousVideo() {
+        if (Model.UI.currentVideoIndex > 0) {
+            Model.UI.currentVideoIndex--;
+        } else {
+            Model.UI.currentVideoIndex = mediaData.videoFileStruct.length - 1;
+        }
+        changeVideoSource();
+    }
+
+    function nextVideo() {
+        if (Model.UI.currentVideoIndex < mediaData.videoFileStruct.length - 1) {
+            Model.UI.currentVideoIndex++;
+        } else {
+            Model.UI.currentVideoIndex = 0;
+        }
+        changeVideoSource();
+    }
+
+    function changeVideoSource() {
+        Model.videoPlayer.src = mediaData.videoPath + mediaData.videoFileStruct[Model.UI.currentVideoIndex]
+            .videoFileName; //更改序号
+        Model.videoPlayer.load(); //重新加载
+        Model.videoPlayer.play(); //播放
+        document.getElementById("logo").innerHTML = "正在播放第 " + (Model.UI.currentVideoIndex + 1) + " 个视频/共" +
+            mediaData.videoFileStruct.length +
+            " 个视频";
+    }
+
+    //音频播放
+    function preAudio() {
+        if (Model.UI.currentAudioIndex > 0) {
+            Model.UI.currentAudioIndex--;
+        } else {
+            Model.UI.currentAudioIndex = mediaData.audioFileStruct.length - 1;
+        }
+        changeAudioSource();
+        addAudioButtons();
+    }
+
+    function nexAudio() {
+        if (Model.UI.currentAudioIndex < mediaData.audioFileStruct.length - 1) {
+            Model.UI.currentAudioIndex++;
+        } else {
+            Model.UI.currentAudioIndex = 0;
+        }
+        changeAudioSource();
+        addAudioButtons();
+    }
+
+    function changeAudioSource() {
+        Model.audioPlayer.src = mediaData.audioPath + mediaData.audioFileStruct[Model.UI.currentAudioIndex]
+            .audioFileName;
+        Model.audioPlayer.load(); //重新加载
+        Model.audioPlayer.play(); //播放
+        document.getElementById("logo").innerHTML = "正在播放第 " + (Model.UI.currentAudioIndex + 1) + " 个音频/共" +
+            mediaData.audioFileStruct.length +
+            " 个音频";
+    }
+
+    //跳转时间
+    // 在视频播放器加载完成后绑定 timeupdate 事件
+    Model.videoPlayer.addEventListener('loadedmetadata', function () {
+        // 在每次视频播放时间更新时执行的事件处理程序
+        Model.videoPlayer.addEventListener('timeupdate', function () {
+            // 更新跳转时间文本框的值为当前视频播放时间（以秒为单位）
+            Model.UI.ShowTime.innerHTML = Math.floor(Model.videoPlayer.currentTime) + "秒/" +
+                parseInt(Model.videoPlayer
+                    .duration) + '秒';
+        });
+    });
+
+    // 实现跳转功能
+    function jumpTo() {
+        let playPauseButton = Model.UI.playPauseButton;
+        //获取具有 id 为 'jumpTime' 的输入框元素，并将其存储在 jumpTimeInput 变量中，方便jsp操作访问
+        var jumpTimeInput = document.getElementById('jumpTime');
+        var jumpVideoInput = document.getElementById('jumpVideo');
+        //将字符串转换成整数
+        Model.UI.jumpTime = parseInt(jumpTimeInput.value);
+        Model.UI.jumpVideoIndex = parseInt(jumpVideoInput.value);
+
+        if (Model.UI.jumpTime > 0 || Model.UI.jumpVideoIndex > 0) {
+            playPauseButton.innerHTML = '暂停';
+        }
+        //规定区间防止数据越界
+        if (Model.UI.jumpVideoIndex >= 0 && Model.UI.jumpVideoIndex < mediaData.videoFileStruct.length - 2) {
+            Model.UI.currentVideoIndex = Model.UI.jumpVideoIndex - 1;
+            changeVideoSource();
+        } else {
+            console.log('无效的视频序号');
+        }
+        if (Model.UI.jumpTime != 0) {
+            let videoPlayer = Model.videoPlayer
+            videoPlayer.currentTime = Model.UI.jumpTime;
+            videoPlayer.play();
+        }
+    }
+
+    // 点击按钮的事件监听，调用方法playPause
+    Model.UI.playPauseButton.addEventListener('click', playPause)
+    //生成九个按钮用来控制进度
+    let durationDom = Model.UI.durationDom;
+    for (let i = 0; i < 9; i++) {
+        let tempDom = document.createElement('input');
+        //产生一个对象
+        tempDom.type = 'button';
+        tempDom.value += 'TimePart' + (i + 1);
+        //循环结束前要将对象取出来放进数组
+        durationDom[i] = tempDom;
+        document.getElementById('duration').appendChild(durationDom[i]);
+    }
+    for (let i = 0; i < 9; i++) {
+        durationDom[i].onclick = function () {
+            Model.videoPlayer.currentTime = i * Model.videoPlayer.duration / 9
+        }
+    }
+</script>
+
+
+</body>
+</html>
